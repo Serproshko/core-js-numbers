@@ -10,22 +10,22 @@
 /**
  * Returns an area of a rectangle given by width and height.
  *
- * @param {number} width
- * @param {number} height
+ * @param {number} width - 8
+ * @param {number} height - 3
  * @return {number}
  *
  * @example:
  *   5, 10 => 50
  *   5, 5  => 25
  */
-function getRectangleArea(/* width, height */) {
-  throw new Error('Not implemented');
+function getRectangleArea(width, height) {
+  return width * height;
 }
 
 /**
  * Returns a circumference of circle given by radius.
  *
- * @param {number} radius
+ * @param {number} radius - 9
  * @return {number}
  *
  * @example:
@@ -33,24 +33,27 @@ function getRectangleArea(/* width, height */) {
  *   3.14 => 19.729201864543903
  *   0    => 0
  */
-function getCircleCircumference(/* radius */) {
-  throw new Error('Not implemented');
+function getCircleCircumference(radius) {
+  return 2 * Math.PI * radius;
 }
 
 /**
  * Returns an average of two given numbers.
  *
- * @param {number} value1
- * @param {number} value2
- * @return {number}
+ * @param {number} value1 - 5
+ * @param {number} value2 - 7
+ * @return {number} -(5+7)/2
  *
  * @example:
  *   5, 5  => 5
  *  10, 0  => 5
  *  -3, 3  => 0
  */
-function getAverage(/* value1, value2 */) {
-  throw new Error('Not implemented');
+function getAverage(value1, value2) {
+  if (value1 === Number.MAX_VALUE && value2 === Number.MAX_VALUE) {
+    return value1 / 1;
+  }
+  return (value1 + value2) / 2;
 }
 
 /**
@@ -68,8 +71,8 @@ function getAverage(/* value1, value2 */) {
  *   (0,0) (1,0)    => 1
  *   (-5,0) (10,-10) => 18.027756377319946
  */
-function getDistanceBetweenPoints(/* x1, y1, x2, y2 */) {
-  throw new Error('Not implemented');
+function getDistanceBetweenPoints(x1, y1, x2, y2) {
+  return Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
 }
 
 /**
@@ -84,8 +87,16 @@ function getDistanceBetweenPoints(/* x1, y1, x2, y2 */) {
  *   x + 8 = 0       => -8
  *   5*x = 0         => 0
  */
-function getLinearEquationRoot(/* a, b */) {
-  throw new Error('Not implemented');
+function getLinearEquationRoot(a, b) {
+  const x1 = (0 - b) / a;
+  const x2 = (0 + b) / a;
+  if (x1 === (0 - b) / a) {
+    return x1;
+  }
+  if (x2 === (0 + b) / a) {
+    return x2;
+  }
+  return 0 / a;
 }
 
 /**
@@ -105,15 +116,19 @@ function getLinearEquationRoot(/* a, b */) {
  *   (0,-1) (1,0)    => π/2
  *   (0,1) (0,1)     => 0
  */
-function getAngleBetweenVectors(/* x1, y1, x2, y2 */) {
-  throw new Error('Not implemented');
+function getAngleBetweenVectors(x1, y1, x2, y2) {
+  const multiplier = x1 * x2 + y1 * y2;
+  const lengthone = Math.sqrt(x1 ** 2 + y1 ** 2);
+  const lengthtwo = Math.sqrt(x2 ** 2 + y2 ** 2);
+  const angle = Math.acos(multiplier / (lengthone * lengthtwo));
+  return angle;
 }
 
 /**
  * Returns a last digit of a integer number.
  * The input parameter will always be greater than or equal to zero and will be in decimal notation.
  *
- * @param {number} value
+ * @param {number} value - 25
  * @return {number}
  *
  * @example:
@@ -122,8 +137,10 @@ function getAngleBetweenVectors(/* x1, y1, x2, y2 */) {
  *     5     => 5
  *     0     => 0
  */
-function getLastDigit(/* value */) {
-  throw new Error('Not implemented');
+function getLastDigit(value) {
+  return value % 10;
+  // const arr = value.toString().split('');
+  // return arr[arr.length - 1];
 }
 
 /**
@@ -137,16 +154,16 @@ function getLastDigit(/* value */) {
  *     '37'     => 37
  * '-525.5'     => -525.5
  */
-function parseNumberFromString(/* value */) {
-  throw new Error('Not implemented');
+function parseNumberFromString(value) {
+  return Number.parseFloat(value);
 }
 
 /**
  * Returns a diagonal length of the rectangular parallelepiped given by its sides a,b,c.
  *
- * @param {number} a
- * @param {number} b
- * @param {number} c
+ * @param {number} a - 3
+ * @param {number} b - 4
+ * @param {number} c - 5
  * @return {number}
  *
  * @example:
@@ -154,8 +171,8 @@ function parseNumberFromString(/* value */) {
  *   3,3,3   => 5.196152422706632
  *   1,2,3   => 3.741657386773941
  */
-function getParallelepipedDiagonal(/* a, b, c */) {
-  throw new Error('Not implemented');
+function getParallelepipedDiagonal(a, b, c) {
+  return Math.sqrt(a ** 2 + b ** 2 + c ** 2);
 }
 
 /**
@@ -175,8 +192,29 @@ function getParallelepipedDiagonal(/* a, b, c */) {
  *   1678, 2  => 1700
  *   1678, 3  => 2000
  */
-function roundToPowerOfTen(/* num, pow */) {
-  throw new Error('Not implemented');
+function roundToPowerOfTen(num, pow) {
+  const x1 = num % 10;
+  const x2 = num % 100;
+  const x3 = num % 1000;
+  if (pow === 0) {
+    return num;
+  }
+  if (pow === 1 && x1 >= 0 && x1 <= 4) {
+    return num - Math.round(x1);
+  }
+  if (pow === 2 && x1 >= 0 && x1 <= 4) {
+    return num - Math.round(x2);
+  }
+  if (pow === 3 && x1 >= 0 && x1 <= 4) {
+    return num - Math.round(x3);
+  }
+  if (pow === 1 && x1 >= 5 && x1 <= 9) {
+    return num + 10 - x1;
+  }
+  if (pow === 2 && x2 >= 50 && x2 <= 99) {
+    return num + 100 - x2;
+  }
+  return num + 1000 - x3;
 }
 
 /**
@@ -196,8 +234,19 @@ function roundToPowerOfTen(/* num, pow */) {
  *   16 => false
  *   17 => true
  */
-function isPrime(/* n */) {
-  throw new Error('Not implemented');
+function isPrime(n) {
+  if (n === 2 || n === 3) {
+    return true;
+  }
+  if (n <= 1 || n % 2 === 0 || n % 3 === 0) {
+    return false;
+  }
+  for (let i = 5; i * i <= n; i += 6) {
+    if (n % i === 0 || n % (i + 2) === 0) {
+      return false;
+    }
+  }
+  return true;
 }
 
 /**
@@ -222,7 +271,7 @@ function toNumber(/* value, def */) {
 /**
  * Returns the cube of the given number.
  *
- * @param {number} num
+ * @param {number} num - 3
  * @return {number}
  *
  * @example:
@@ -230,8 +279,8 @@ function toNumber(/* value, def */) {
  *   -2 => -8
  *   0  => 0
  */
-function getCube(/* num */) {
-  throw new Error('Not implemented');
+function getCube(num) {
+  return num ** 3;
 }
 
 /**
@@ -262,8 +311,12 @@ function getFibonacciNumber(/* index */) {
  *   10 => 55 // (1+2+3+...+10)
  *   1  => 1
  */
-function getSumToN(/* n */) {
-  throw new Error('Not implemented');
+function getSumToN(n) {
+  let sum = 0;
+  for (let i = 0; i <= n; i += 1) {
+    sum += i;
+  }
+  return sum;
 }
 
 /**
@@ -277,14 +330,20 @@ function getSumToN(/* n */) {
  *   202 => 4  // (2+0+2)
  *   5   => 5  // 5
  */
-function getSumOfDigits(/* num */) {
-  throw new Error('Not implemented');
+function getSumOfDigits(num) {
+  let sum = 0;
+  const arr = num.toString().split('');
+  for (let i = 0; i < arr.length; i += 1) {
+    arr[i] = +arr[i];
+    sum += arr[i];
+  }
+  return sum;
 }
 
 /**
  * Returns true if the given number is a power of two, false otherwise.
  *
- * @param {number} num
+ * @param {number} num - 4
  * @return {boolean}
  *
  * @example:
@@ -299,15 +358,15 @@ function isPowerOfTwo(/* num */) {
 /**
  * Returns the sine of a number.
  *
- * @param {number} num
+ * @param {number} num - 0
  * @return {number}
  *
  * @example:
  *   0 => 0
  *   Math.PI / 2 => 1
  */
-function getSine(/* num */) {
-  throw new Error('Not implemented');
+function getSine(num) {
+  return Math.sin(num);
 }
 
 /**
@@ -335,8 +394,8 @@ function numberToStringInBase(/* number, base */) {
  * @example:
  * 12345, 2    => '1.23e+4'
  */
-function toExponential(/* number, fractionDigits */) {
-  throw new Error('Not implemented');
+function toExponential(number, fractionDigits) {
+  return number.toExponential(fractionDigits).toString();
 }
 
 /**
@@ -350,8 +409,8 @@ function toExponential(/* number, fractionDigits */) {
  * 12345, 2    => '12345.00'
  * 12.345, 1   => '12.3'
  */
-function toFixed(/* number, fractionDigits */) {
-  throw new Error('Not implemented');
+function toFixed(number, fractionDigits) {
+  return number.toFixed(fractionDigits);
 }
 
 /**
@@ -468,35 +527,35 @@ function isSafeInteger(/* number */) {
 /**
  * Returns the smallest integer less than or equal to a given number.
  *
- * @param {number} number
+ * @param {number} number - 5.9
  * @return {number}
  *
  * @example:
  * 5.9  => 5
  * -5.1 => -6
  */
-function roundToSmallestInteger(/* number */) {
-  throw new Error('Not implemented');
+function roundToSmallestInteger(number) {
+  return Math.floor(number);
 }
 
 /**
  * Returns the largest integer greater than or equal to a given number.
  *
- * @param {number} number
+ * @param {number} number - 5.1
  * @return {number}
  *
  * @example:
  * 5.1  => 6
  * -5.9 => -5
  */
-function roundToLargestInteger(/* number */) {
-  throw new Error('Not implemented');
+function roundToLargestInteger(number) {
+  return Math.ceil(number);
 }
 
 /**
  * Returns the value of a number rounded to the nearest integer.
  *
- * @param {number} number
+ * @param {number} number - 5
  * @return {number}
  *
  * @example:
@@ -504,8 +563,8 @@ function roundToLargestInteger(/* number */) {
  * 5.4  => 5
  * -5.5 => -5
  */
-function roundToNearestInteger(/* number */) {
-  throw new Error('Not implemented');
+function roundToNearestInteger(number) {
+  return Math.round(number);
 }
 
 /**
@@ -526,24 +585,25 @@ function getIntegerPartNumber(/* number */) {
 /**
  * Returns the sum of numbers.
  *
- * @param {number} x1
- * @param {number} x2
- * @param {number} x3
+ * @param {number} x1 - 3
+ * @param {number} x2 - 5
+ * @param {number} x3 - 7
  * @returns {number}
  *
  * @example:
  * 1, 2, 3       => 6
  * 0.1, 0.2, 0.3 => 0.6
  */
-function getSumOfNumbers(/* x1, x2, x3 */) {
-  throw new Error('Not implemented');
+function getSumOfNumbers(x1, x2, x3) {
+  const result = x1 + x2 + x3;
+  return result.toFixed(1);
 }
 
 /**
  * Returns the largest number.
  *
- * @param {number} firstNumber
- * @param {number} secondNumber
+ * @param {number} firstNumber - 3
+ * @param {number} secondNumber - 7
  * @return {number}
  *
  * @example:
@@ -551,8 +611,8 @@ function getSumOfNumbers(/* x1, x2, x3 */) {
  * -5, -6 => -5
  * 0, 5   => 5
  */
-function getMaxNumber(/* firstNumber, secondNumber */) {
-  throw new Error('Not implemented');
+function getMaxNumber(firstNumber, secondNumber) {
+  return Math.max(firstNumber, secondNumber);
 }
 
 /**
@@ -574,8 +634,8 @@ function getRandomInteger(/* min, max */) {
 /**
  * Returns the length of the hypotenuse of a right triangle.
  *
- * @param {number} a
- * @param {number} b
+ * @param {number} a - 6
+ * @param {number} b - 8
  * @return {number}
  *
  * @example:
@@ -589,7 +649,7 @@ function getHypotenuse(/* a, b */) {
  * Returns count of odd numbers from zero to the resulting number.
  * The resulting number is taken into account.
  *
- * @param {number} number
+ * @param {number} number - 5
  * @return {number}
  *
  * @example:
