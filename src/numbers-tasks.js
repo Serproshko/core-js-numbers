@@ -264,8 +264,17 @@ function isPrime(n) {
  *   toNumber(42, 0) => 42
  *   toNumber(new Number(42), 0) => 42
  */
-function toNumber(/* value, def */) {
-  throw new Error('Not implemented');
+function toNumber(value, def) {
+  if (value === Number(value)) {
+    return value;
+  }
+  if (value === Object(value)) {
+    return value;
+  }
+  if (value === String(Number(value))) {
+    return value;
+  }
+  return def;
 }
 
 /**
@@ -296,8 +305,14 @@ function getCube(num) {
  *   3  => 2
  *   10 => 55
  */
-function getFibonacciNumber(/* index */) {
-  throw new Error('Not implemented');
+function getFibonacciNumber(index) {
+  if (index === 0) {
+    return 0;
+  }
+  if (index === 1) {
+    return 1;
+  }
+  return getFibonacciNumber(index - 2) + getFibonacciNumber(index - 1);
 }
 
 /**
@@ -442,8 +457,8 @@ function toPrecision(number, precision) {
  * new Number(5) => 5
  * Number(-5)    => -5
  */
-function getNumberValue(/* number */) {
-  throw new Error('Not implemented');
+function getNumberValue(number) {
+  return number.valueOf();
 }
 
 /**
@@ -643,8 +658,8 @@ function getMaxNumber(firstNumber, secondNumber) {
  * -5, 0 => -5 | -4 | -3 | -2 | -1 | 0
  * -1, 1 => -1 | 0 | 1
  */
-function getRandomInteger(/* min, max */) {
-  throw new Error('Not implemented');
+function getRandomInteger(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
 /**
@@ -677,8 +692,21 @@ function getHypotenuse(a, b) {
  * 10 => 5
  * 15 => 8
  */
-function getCountOfOddNumbers(/* number */) {
-  throw new Error('Not implemented');
+function getCountOfOddNumbers(number) {
+  let count = 0;
+  for (let i = 0; i < number; i += 1) {
+    count += 1;
+  }
+  if (count % 2 !== 0) {
+    return Math.round(count / 2);
+  }
+  for (let j = 0; j > number; j -= 1) {
+    count += 1;
+  }
+  if (count % 2 !== 0) {
+    return Math.round(count / 2);
+  }
+  return count / 2;
 }
 
 module.exports = {
